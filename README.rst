@@ -1,5 +1,22 @@
 PyLocate
-========
+********
+
+.. image:: https://travis-ci.org/iLoveTux/pylocate.svg?branch=master
+    :alt: Travis-CI Build Status (for Linux)
+    :target: https://travis-ci.org/iLoveTux/pylocate
+
+.. image:: https://ci.appveyor.com/api/projects/status/e02gl7prinebwpa8?svg=true 
+    :alt: AppVeyor Build Status (for windows)
+    :target: https://ci.appveyor.com/project/iLoveTux/pylocate
+
+.. image:: https://codecov.io/gh/iLoveTux/pylocate/branch/master/graph/badge.svg
+    :alt: Test Coverage Status
+    :target: https://codecov.io/gh/iLoveTux/pylocate
+
+.. image:: https://codeclimate.com/github/iLoveTux/pylocate/badges/gpa.svg
+   :alt: Code Climate
+   :scale: 100%
+   :target: https://codeclimate.com/github/iLoveTux/pylocate
 
 A simple command line tool to help you find files even within
 zip archives.
