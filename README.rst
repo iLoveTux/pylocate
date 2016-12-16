@@ -79,7 +79,7 @@ Contributing
 ------------
 
 I welcome all types of contributions even simple complaints. Please go to the
-``issue tracker <https://github.com/ilovetux/pylocate/issues>``_ to open a bug
+`issue tracker <https://github.com/ilovetux/pylocate/issues>`_ to open a bug
 report, feature request or complaint. If you would like to submit a pull-request
 go right ahead, chances are that I will thank you and include it right there on
 the spot, but I might cherry-pick or ask for some improvements such as a test case.
@@ -101,6 +101,6 @@ You can run the tests with the following command::
 Getting help
 ------------
 
-Please feel free to open an ``issue <https://github.com/ilovetux/pylocate/issues>``_
+Please feel free to open an `issue <https://github.com/ilovetux/pylocate/issues>`_
 with any questions or comments you might have, I will try my best to answer
 the same day.
