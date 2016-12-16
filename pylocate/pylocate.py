@@ -5,38 +5,59 @@ import fnmatch
 import zipfile
 import argparse
 
-def locate(directories=os.path.abspath('.'), patterns=("*", ), matchall=False, regex=False, examine_zips=False):
+def _regex_matches(test, filenames, patterns):
+    for filename in filenames:
+        if test(p.search(filename) for p in patterns):
+            yield filename
+
+def _glob_matches(test, filenames, patterns):
+    for filename in filenames:
+        if test(fnmatch.fnmatch(filename, p) for p in patterns):
+            yield filename
+
+
+def _zip_member_matches(_zip, test, regex, patterns):
+    find_matches = _regex_matches if regex else _glob_matches
+    try:
+        archive = zipfile.ZipFile(_zip)
+    except:
+        return "UNABLE TO OPEN ZIPFILE: {}...SKIPPING".format(_zip)
+    members = (os.path.join(_zip, name)
+                for name in archive.namelist())
+    members = (member.replace("/", os.path.sep)
+                for member in members)
+    return (match for match in _matches(test, regex, members, patterns))
+
+
+def _matches(test, regex, filenames, patterns):
+    find_matches = _regex_matches if regex else _glob_matches
+    return (match for match in find_matches(test, filenames, patterns))
+
+
+def locate(directories=os.path.abspath('.'),
+           patterns=("*", ),
+           matchall=False,
+           regex=False,
+           examine_zips=False):
     test = all if matchall else any
-    if isinstance(patterns, str):
-        patterns = (patterns, )
     if isinstance(directories, str):
         directories = (directories, )
+    if isinstance(patterns, str):
+        patterns = (patterns, )
     if regex:
-        patterns = tuple(re.compile(pattern) for pattern in patterns)
+        patterns = tuple(map(re.compile, patterns))
+
     for directory in directories:
         for root, dirs, files in os.walk(directory):
-            for filename in (os.path.join(root, f) for f in files):
-                if filename.endswith(".zip") and examine_zips:
-                    try:
-                        archive = zipfile.ZipFile(filename)
-                    except:
-                        yield "UNABLE TO OPEN ZIPFILE: {}...SKIPPING".format(filename)
-                        continue
-                    for name in archive.namelist():
-                        member_name = os.path.join(root, filename, name)
-                        member_name = member_name.replace("/", os.path.sep)
-                        if regex:
-                            if test(p.search(member_name) is not None for p in patterns):
-                                yield member_name
-                        else:
-                            if test(fnmatch.fnmatch(member_name, p) for p in patterns):
-                                yield member_name
-                if regex:
-                    if test(p.search(filename) is not None for p in patterns):
-                        yield os.path.join(root, filename)
-                else:
-                    if test(fnmatch.fnmatch(filename, p) for p in patterns):
-                        yield os.path.join(root, filename)
+            filenames = (os.path.join(root, f) for f in files)
+            if examine_zips:
+                zips = (f for f in filenames if f.endswith(".zip"))
+                for z in zips:
+                    matches = _zip_member_matches(z, test, regex, patterns)
+                    for match in matches:
+                        yield match
+            for match in _matches(test, regex, filenames, patterns):
+                yield match
 
 
 def parse_args(argv):
