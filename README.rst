@@ -72,8 +72,8 @@ the zip file.
 All of this functionality is provided by one Python generator, so it is easy
 to use within your own programs. If you use it this way there is a 1:1
 correspondence between the command line options and the parameters to the
-function. The functionality is the same except that results are ``yield``ed
-instead of ``print``ed.
+function. The functionality is the same except that results are ``yield`` ed
+instead of ``print`` ed.
 
 Contributing
 ------------
