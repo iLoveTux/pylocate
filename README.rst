@@ -11,7 +11,7 @@ You can install pylocate with the following command::
 
     pip install pylocate
 
-or for the bleeding edge (although they will usually be the same):
+or for the bleeding edge (although they will usually be the same)::
 
     pip install git+https://github.com/ilovetux/pylocate.git
 
@@ -38,27 +38,21 @@ data files and would like the ability to search through a local directory.
 Features
 --------
 
-PyLocate can search through zip files, just add the ``-z, --examine-zips``
+* PyLocate can search through zip files, just add the ``-z, --examine-zips``
 flag, and the zip file will be treated just like a directory.
-
-PyLocate can accept many locations to look through, just keep adding
+* PyLocate can accept many locations to look through, just keep adding
 ``-d, --directory`` arguments to add locations to look through.
-
-Match on multiple patterns, if you would like to search for all
+* Match on multiple patterns, if you would like to search for all
 ``.py`` files as well as all ``.md`` files, just add them like so
 ``pylocate -p *.py -p *.md``
-
-Optionally only match on all patterns, suppose you want to find all
+* Optionally only match on all patterns, suppose you want to find all
 ``*.py`` files which have locate in the name you can do so like this
 ``pylocate -p *.py -p *locate*``
-
-PyLocate operates on ``glob`` patterns so just pass in what the filename
+* PyLocate operates on ``glob`` patterns so just pass in what the filename
 should look like and it should work.
-
-PyLocate can also use regular expressions to search for files, simply
+* PyLocate can also use regular expressions to search for files, simply
 specify the ``-e, --regex`` flag and your patterns.
-
-PyLocate also provides a memory-efficient python generator for use
+* PyLocate also provides a memory-efficient python generator for use
 within your own programs.
 
 How it works
